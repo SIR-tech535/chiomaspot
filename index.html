@@ -7,377 +7,310 @@
 
 <style>
 :root{
-    --red:#b11226;
-    --dark:#3b0a0a;
-    --light:#fff5f5;
+ --red:#b11226;
+ --dark:#3b0a0a;
+ --light:#fff5f5;
 }
-body{
-    margin:0;
-    font-family:Segoe UI, sans-serif;
-    background:#fff;
-    color:#333;
-}
+body{margin:0;font-family:Segoe UI,sans-serif}
 header{
-    background:var(--red);
-    color:white;
-    padding:15px 25px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+ background:var(--red);
+ color:#fff;
+ padding:15px 25px;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
 }
 header button{
-    background:white;
-    color:var(--red);
-    border:none;
-    padding:10px 15px;
-    border-radius:6px;
-    font-weight:bold;
-    cursor:pointer;
+ background:#fff;
+ color:var(--red);
+ border:none;
+ padding:10px 15px;
+ border-radius:6px;
+ font-weight:bold;
+ cursor:pointer;
 }
 section{padding:50px 25px}
 .hero{
-    background:linear-gradient(rgba(177,18,38,.85),rgba(177,18,38,.85)),
-    url("https://images.unsplash.com/photo-1546069901-ba9599a7e63c");
-    background-size:cover;
-    color:white;
-    text-align:center;
+ background:linear-gradient(rgba(177,18,38,.85),rgba(177,18,38,.85)),
+ url("https://images.unsplash.com/photo-1546069901-ba9599a7e63c");
+ background-size:cover;
+ color:white;
+ text-align:center;
 }
-.hero h2{font-size:38px}
-.section-title{
-    text-align:center;
-    color:var(--red);
-    margin-bottom:30px;
+.section-title{text-align:center;color:var(--red);margin-bottom:30px}
+.food-grid,.package-items{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+ gap:20px;
 }
-.food-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-    gap:20px;
+.food-card,.package-box{
+ border:1px solid #ddd;
+ border-radius:10px;
+ overflow:hidden;
 }
-.food-card{
-    border:1px solid #ddd;
-    border-radius:10px;
-    overflow:hidden;
+.food-card img,.package-box img{
+ width:100%;
+ height:160px;
+ object-fit:cover;
 }
-.food-card img{
-    width:100%;
-    height:170px;
-    object-fit:cover;
+.food-card div,.package-box div{padding:15px}
+button{
+ background:var(--red);
+ color:white;
+ border:none;
+ padding:10px;
+ border-radius:5px;
+ cursor:pointer;
 }
-.food-card div{padding:15px}
-.food-card button{
-    background:var(--red);
-    color:white;
-    border:none;
-    padding:8px 12px;
-    border-radius:5px;
-    cursor:pointer;
-}
-
-.package{
-    border:2px dashed var(--red);
-    padding:20px;
-    border-radius:10px;
-    margin-bottom:15px;
-}
-.package button{
-    background:var(--red);
-    color:white;
-    border:none;
-    padding:10px;
-    border-radius:5px;
-    cursor:pointer;
-}
-
 .modal{
-    display:none;
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.7);
-    z-index:1000;
-    padding:15px;
+ display:none;
+ position:fixed;
+ inset:0;
+ background:rgba(0,0,0,.7);
+ z-index:1000;
+ padding:15px;
 }
 .modal-content{
-    background:white;
-    width:100%;
-    max-width:520px;
-    margin:auto;
-    border-radius:12px;
-    padding:20px;
-    max-height:90vh;
-    overflow-y:auto;
-    animation:pop .3s ease;
+ background:#fff;
+ max-width:550px;
+ margin:auto;
+ padding:20px;
+ border-radius:12px;
+ max-height:90vh;
+ overflow-y:auto;
 }
-@keyframes pop{
-    from{transform:scale(.9);opacity:0}
-    to{transform:scale(1);opacity:1}
-}
-.modal-content h3{color:var(--red)}
 .modal-content input{
-    width:100%;
-    padding:10px;
-    margin:8px 0;
+ width:100%;
+ padding:10px;
+ margin:6px 0;
 }
-.modal-content button{
-    width:100%;
-    padding:12px;
-    background:var(--red);
-    color:white;
-    border:none;
-    border-radius:6px;
-}
-
 .item-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
-    gap:12px;
-    margin-top:15px;
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(110px,1fr));
+ gap:12px;
 }
 .item-card{
-    border:2px solid #ddd;
-    border-radius:10px;
-    overflow:hidden;
-    cursor:pointer;
-    text-align:center;
+ border:2px solid #ddd;
+ border-radius:8px;
+ text-align:center;
+ cursor:pointer;
 }
 .item-card img{
-    width:100%;
-    height:80px;
-    object-fit:cover;
+ width:100%;
+ height:80px;
+ object-fit:cover;
 }
-.item-card p{margin:6px;font-size:14px}
 .item-card.active{
-    border-color:var(--red);
-    background:#ffe5e8;
+ border-color:var(--red);
+ background:#ffe5e8;
 }
-
-.testimonial{
-    background:var(--light);
-    padding:20px;
-    border-radius:10px;
-    margin-bottom:10px;
-}
-
 footer{
-    background:var(--dark);
-    color:white;
-    padding:30px;
-    text-align:center;
+ background:var(--dark);
+ color:#fff;
+ padding:30px;
+ text-align:center;
 }
-footer a{
-    color:white;
-    text-decoration:none;
-    display:block;
-    margin:5px 0;
-}
+footer a{color:white;text-decoration:none;display:block;margin:5px}
 </style>
 </head>
 
 <body>
 
 <header>
-<h1>Chiomas Pot Kitchen</h1>
-<button onclick="openModal('createPackage')">Create Package</button>
+<h2>Chiomas Pot Kitchen</h2>
+<button onclick="openModal('createPackageModal')">Create Package</button>
 </header>
 
 <section class="hero">
-<h2>From My Pot to Your Heart..</h2>
-<p>Delicious homemade meals prepared with love</p>
-</section>
-
-<section>
-<h2 class="section-title">Food Available</h2>
-
-<h3 style="font-weight:800">Traditional Foods</h3>
-<div class="food-grid">
-<script>
-const traditional=[
-["Jollof Rice","jollof"],["Egusi Soup","egusi"],["Pounded Yam","yam"],
-["Fried Plantain","plantain"],["Ofada Rice","ofada"],["Pepper Soup","pepper"]
-];
-traditional.forEach(f=>{
-document.write(`
-<div class="food-card">
-<img src="https://source.unsplash.com/400x300/?${f[1]}">
-<div>
-<h4>${f[0]}</h4>
-<p>Authentic Nigerian taste</p>
-<b>₦3,500</b><br><br>
-<button onclick="orderFood('${f[0]}')">Order Food</button>
-</div></div>`);
-});
-</script>
-</div>
-
-<h3 style="font-weight:800;margin-top:40px">Modern Foods</h3>
-<div class="food-grid">
-<script>
-["Spaghetti","Pizza","Burger","Fried Rice","Pasta","Grilled Chicken"].forEach(f=>{
-document.write(`
-<div class="food-card">
-<img src="https://source.unsplash.com/400x300/?${f}">
-<div>
-<h4>${f}</h4>
-<p>Modern delight</p>
-<b>₦3,000</b><br><br>
-<button onclick="orderFood('${f}')">Order Food</button>
-</div></div>`);
-});
-</script>
-</div>
-
-<h3 style="font-weight:800;margin-top:40px">Snacks</h3>
-<div class="food-grid">
-<script>
-["Meat Pie","Samosa","Spring Roll","Cake","Donut","Chin Chin"].forEach(f=>{
-document.write(`
-<div class="food-card">
-<img src="https://source.unsplash.com/400x300/?${f}">
-<div>
-<h4>${f}</h4>
-<p>Freshly baked</p>
-<b>₦1,500</b><br><br>
-<button onclick="orderFood('${f}')">Order Food</button>
-</div></div>`);
-});
-</script>
-</div>
+<h1>From My Pot to Your Heart..</h1>
+<p>Delicious meals made with love</p>
 </section>
 
 <section>
 <h2 class="section-title">Packages</h2>
-<div class="package">
+
+<div class="food-grid">
+<div class="package-box">
+<img src="https://source.unsplash.com/400x300/?jollof">
+<div>
 <h3>Love Combo</h3>
-<p>Romantic meal setup</p>
-<button onclick="orderFood('Love Combo Package')">Order Package</button>
+<p>₦18,000 – Romantic meal setup</p>
+<ul>
+<li>Jollof Rice</li>
+<li>Chicken</li>
+<li>Plantain</li>
+<li>Wine</li>
+<li>Cake</li>
+<li>Love Card</li>
+</ul>
+<button onclick="viewPackage(0)">View Package</button>
 </div>
-</section>
+</div>
 
-<section>
-<h2 class="section-title">Testimonials</h2>
-<div class="testimonial">Best jollof rice ever! – Ada</div>
-<div class="testimonial">Fast delivery and tasty meals – Kunle</div>
-</section>
-
-<section>
-<h2 class="section-title">Blog</h2>
-<iframe width="100%" height="300" src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+<div class="package-box">
+<img src="https://source.unsplash.com/400x300/?family dinner">
+<div>
+<h3>Family Feast</h3>
+<p>₦28,000 – Family size meals</p>
+<ul>
+<li>Fried Rice</li>
+<li>Jollof Rice</li>
+<li>Chicken</li>
+<li>Salad</li>
+<li>Drink</li>
+<li>Cake</li>
+</ul>
+<button onclick="viewPackage(1)">View Package</button>
+</div>
+</div>
+</div>
 </section>
 
 <footer>
 <p>© 2026 Chiomas Pot Kitchen</p>
 <p>WhatsApp Orders: 07065357861</p>
-<a href="#">Instagram: @Chiomas_pot</a>
-<a href="#">Facebook: Chiomas_pot</a>
-<a href="#">TikTok: @Chiomas_pot</a>
-<a href="#">YouTube: Chiomas_pot</a>
+<a>Instagram: @Chiomas_pot</a>
+<a>Facebook: Chiomas_pot</a>
+<a>TikTok: @Chiomas_pot</a>
+<a>YouTube: Chiomas_pot</a>
 </footer>
 
-<!-- ORDER MODAL -->
-<div class="modal" id="orderModal">
+<!-- VIEW PACKAGE MODAL -->
+<div class="modal" id="packageModal">
 <div class="modal-content">
-<h3>Order Food</h3>
-<input id="itemName" placeholder="Item">
-<input id="name" placeholder="Your Name">
-<input id="phone" placeholder="Phone">
-<input id="location" placeholder="Delivery Location">
-<input type="date" id="date">
-<input type="time" id="time">
-<button onclick="sendOrder()">Send to WhatsApp</button>
+<h3 id="pkgTitle"></h3>
+<p id="pkgDesc"></p>
+<b id="pkgPrice"></b>
+
+<h4>Items Included</h4>
+<div id="pkgItems" class="item-grid"></div>
+
+<hr>
+<input id="pName" placeholder="Your Name">
+<input id="pPhone" placeholder="Phone">
+<input id="pLocation" placeholder="Delivery Location">
+<input type="date" id="pDate">
+<input type="time" id="pTime">
+
+<button onclick="sendPackageOrder()">Order Package via WhatsApp</button>
 </div>
 </div>
 
 <!-- CREATE PACKAGE MODAL -->
-<div class="modal" id="createPackage">
+<div class="modal" id="createPackageModal">
 <div class="modal-content">
 <h3>Create Custom Package</h3>
-<input id="pkgName" placeholder="Package Name">
+<input id="cPkgName" placeholder="Package Name">
 <input id="searchItem" placeholder="Search items..." onkeyup="filterItems()">
-<div id="packageItems" class="item-grid"></div>
-<input id="cpName" placeholder="Your Name">
-<input id="cpPhone" placeholder="Phone">
-<input id="cpLocation" placeholder="Delivery Location">
-<input type="date" id="cpDate">
-<input type="time" id="cpTime">
-<button onclick="sendPackage()">Send Package Order</button>
+<div id="customItems" class="item-grid"></div>
+
+<input id="cName" placeholder="Your Name">
+<input id="cPhone" placeholder="Phone">
+<input id="cLocation" placeholder="Delivery Location">
+<input type="date" id="cDate">
+<input type="time" id="cTime">
+
+<button onclick="sendCustomPackage()">Send Custom Package</button>
 </div>
 </div>
 
 <script>
-const packageFoodItems=[
- {name:"Jollof Rice",img:"jollof"},
- {name:"Chicken",img:"chicken"},
- {name:"Plantain",img:"plantain"},
- {name:"Salad",img:"salad"},
- {name:"Drink",img:"drink"},
- {name:"Spaghetti",img:"spaghetti"},
- {name:"Wine",img:"wine"},
- {name:"Cake",img:"cake"},
- {name:"Love Card",img:"gift"}
+const packages=[
+{
+ name:"Love Combo",
+ price:"₦18,000",
+ desc:"Romantic meal setup",
+ items:["Jollof Rice","Chicken","Plantain","Wine","Cake","Love Card"]
+},
+{
+ name:"Family Feast",
+ price:"₦28,000",
+ desc:"Family size meals",
+ items:["Fried Rice","Jollof Rice","Chicken","Salad","Drink","Cake"]
+}
 ];
-let selectedItems=[];
 
-function openModal(id){
- document.getElementById(id).style.display="flex";
- if(id==="createPackage") loadPackageItems();
-}
-function closeModals(){
- document.querySelectorAll(".modal").forEach(m=>m.style.display="none");
-}
-window.onclick=e=>{
- if(e.target.classList.contains("modal")) closeModals();
-}
+const itemImages={
+ "Jollof Rice":"jollof","Chicken":"chicken","Plantain":"plantain",
+ "Wine":"wine","Cake":"cake","Love Card":"gift",
+ "Fried Rice":"fried rice","Salad":"salad","Drink":"drink"
+};
 
-function orderFood(item){
- document.getElementById("itemName").value=item;
- openModal("orderModal");
-}
+let currentPackage=null;
+let customSelected=[];
 
-function sendOrder(){
- let msg=`Order:${itemName.value}%0AName:${name.value}%0APhone:${phone.value}%0ALocation:${location.value}%0ADate:${date.value}%20Time:${time.value}`;
- window.open(`https://wa.me/2347065357861?text=${msg}`,"_blank");
- closeModals();
-}
+function openModal(id){document.getElementById(id).style.display="flex"}
+window.onclick=e=>{if(e.target.classList.contains("modal"))e.target.style.display="none"}
 
-function loadPackageItems(){
- const box=document.getElementById("packageItems");
+function viewPackage(i){
+ currentPackage=packages[i];
+ document.getElementById("pkgTitle").innerText=currentPackage.name;
+ document.getElementById("pkgDesc").innerText=currentPackage.desc;
+ document.getElementById("pkgPrice").innerText=currentPackage.price;
+ const box=document.getElementById("pkgItems");
  box.innerHTML="";
- selectedItems=[];
- packageFoodItems.forEach((item,i)=>{
+ currentPackage.items.forEach(it=>{
  box.innerHTML+=`
- <div class="item-card" onclick="toggleItem(${i})">
- <img src="https://source.unsplash.com/200x200/?${item.img}">
- <p>${item.name}</p>
+ <div class="item-card">
+ <img src="https://source.unsplash.com/200x200/?${itemImages[it]}">
+ <p>${it}</p>
+ </div>`;
+ });
+ openModal("packageModal");
+}
+
+function sendPackageOrder(){
+ let msg=`Package:${currentPackage.name}
+%0APrice:${currentPackage.price}
+%0AItems:${currentPackage.items.join(", ")}
+%0AName:${pName.value}
+%0APhone:${pPhone.value}
+%0ALocation:${pLocation.value}
+%0ADate:${pDate.value} ${pTime.value}`;
+
+ window.open(`https://wa.me/2347065357861?text=${msg}`,"_blank");
+}
+
+const allItems=Object.keys(itemImages);
+function loadCustomItems(){
+ const box=document.getElementById("customItems");
+ box.innerHTML="";
+ customSelected=[];
+ allItems.forEach(it=>{
+ box.innerHTML+=`
+ <div class="item-card" onclick="toggleCustom(this,'${it}')">
+ <img src="https://source.unsplash.com/200x200/?${itemImages[it]}">
+ <p>${it}</p>
  </div>`;
  });
 }
+loadCustomItems();
 
-function toggleItem(i){
- const card=document.querySelectorAll(".item-card")[i];
- const name=packageFoodItems[i].name;
- if(selectedItems.includes(name)){
-  selectedItems=selectedItems.filter(x=>x!==name);
-  card.classList.remove("active");
+function toggleCustom(el,it){
+ if(customSelected.includes(it)){
+  customSelected=customSelected.filter(x=>x!==it);
+  el.classList.remove("active");
  }else{
-  selectedItems.push(name);
-  card.classList.add("active");
+  customSelected.push(it);
+  el.classList.add("active");
  }
 }
 
 function filterItems(){
- const q=document.getElementById("searchItem").value.toLowerCase();
- document.querySelectorAll(".item-card").forEach(card=>{
-  card.style.display=card.innerText.toLowerCase().includes(q)?"":"none";
+ const q=searchItem.value.toLowerCase();
+ document.querySelectorAll("#customItems .item-card").forEach(c=>{
+  c.style.display=c.innerText.toLowerCase().includes(q)?"":"none";
  });
 }
 
-function sendPackage(){
- if(selectedItems.length===0){
-  alert("Select at least one item");
-  return;
- }
- let msg=`Custom Package:${pkgName.value}%0AItems:${selectedItems.join(", ")}%0AName:${cpName.value}%0APhone:${cpPhone.value}%0ALocation:${cpLocation.value}%0ADate:${cpDate.value}%20Time:${cpTime.value}`;
+function sendCustomPackage(){
+ let msg=`Custom Package:${cPkgName.value}
+%0AItems:${customSelected.join(", ")}
+%0AName:${cName.value}
+%0APhone:${cPhone.value}
+%0ALocation:${cLocation.value}
+%0ADate:${cDate.value} ${cTime.value}`;
  window.open(`https://wa.me/2347065357861?text=${msg}`,"_blank");
- closeModals();
 }
 </script>
 
