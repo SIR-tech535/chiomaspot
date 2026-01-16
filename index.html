@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Chiomas Pot Kitchen</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root{
+    --red:#b11226;
+    --dark:#3b0a0a;
+    --light:#fff5f5;
+}
+body{
+    margin:0;
+    font-family:Segoe UI, sans-serif;
+    background:#fff;
+    color:#333;
+}
+header{
+    background:var(--red);
+    color:white;
+    padding:15px 30px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+header h1{margin:0}
+header button{
+    background:white;
+    color:var(--red);
+    border:none;
+    padding:10px 15px;
+    border-radius:5px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+section{
+    padding:50px 30px;
+}
+.hero{
+    background:linear-gradient(rgba(177,18,38,.85),rgba(177,18,38,.85)),
+    url("https://images.unsplash.com/photo-1546069901-ba9599a7e63c");
+    background-size:cover;
+    color:white;
+    text-align:center;
+}
+.hero h2{font-size:40px}
+.hero p{font-size:18px}
+
+.section-title{
+    color:var(--red);
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.food-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+}
+.food-card{
+    border:1px solid #ddd;
+    border-radius:10px;
+    overflow:hidden;
+    background:white;
+}
+.food-card img{
+    width:100%;
+    height:180px;
+    object-fit:cover;
+}
+.food-card div{
+    padding:15px;
+}
+.food-card button{
+    background:var(--red);
+    color:white;
+    border:none;
+    padding:8px 12px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.package{
+    border:2px dashed var(--red);
+    padding:20px;
+    border-radius:10px;
+    margin:15px 0;
+}
+.package button{
+    background:var(--red);
+    color:white;
+    border:none;
+    padding:10px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.modal{
+    display:none;
+    position:fixed;
+    top:0;left:0;
+    width:100%;height:100%;
+    background:rgba(0,0,0,.6);
+    justify-content:center;
+    align-items:center;
+    z-index:10;
+}
+.modal-content{
+    background:white;
+    padding:25px;
+    width:90%;
+    max-width:500px;
+    border-radius:10px;
+    max-height:90vh;
+    overflow:auto;
+}
+.modal-content h3{color:var(--red)}
+.modal-content input,
+.modal-content textarea,
+.modal-content select{
+    width:100%;
+    padding:10px;
+    margin:8px 0;
+}
+.modal-content button{
+    background:var(--red);
+    color:white;
+    border:none;
+    padding:10px;
+    width:100%;
+    border-radius:5px;
+}
+
+.testimonial{
+    background:var(--light);
+    padding:20px;
+    border-radius:10px;
+    margin:10px 0;
+}
+
+footer{
+    background:var(--dark);
+    color:white;
+    padding:30px;
+    text-align:center;
+}
+iframe{width:100%;height:300px;border-radius:10px}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Chiomas Pot Kitchen</h1>
+    <button onclick="openModal('createPackage')">Create Package</button>
+</header>
+
+<section class="hero">
+    <h2>From My Pot to Your Heart..</h2>
+    <p>Delicious homemade meals prepared with love and delivered fresh to you.</p>
+</section>
+
+<section>
+<h2 class="section-title">Our Kitchen</h2>
+<p style="max-width:800px;margin:auto;text-align:center">
+Chiomas Pot Kitchen specializes in traditional and modern dishes made with fresh ingredients, rich flavors, and hygienic preparation. Every meal is cooked with passion, bringing warmth and satisfaction to every bite.
+</p>
+</section>
+
+<section>
+<h2 class="section-title">Food Available</h2>
+
+<h3>Traditional Foods</h3>
+<div class="food-grid">
+<script>
+const foods = [
+["Jollof Rice","₦3,500","Smoky Nigerian jollof rice","jollof"],
+["Egusi Soup","₦4,000","Rich melon seed soup","egusi"],
+["Pounded Yam","₦3,000","Soft and stretchy","yam"],
+["Fried Plantain","₦1,500","Golden ripe plantain","plantain"],
+["Ofada Rice","₦4,500","Local rice with sauce","ofada"],
+["Pepper Soup","₦3,500","Spicy and soothing","pepper"]
+];
+foods.forEach(f=>{
+document.write(`
+<div class="food-card">
+<img src="https://source.unsplash.com/400x300/?${f[3]}">
+<div>
+<h4>${f[0]}</h4>
+<p>${f[2]}</p>
+<b>${f[1]}</b><br><br>
+<button onclick="orderFood('${f[0]}')">Order Food</button>
+</div>
+</div>
+`);
+});
+</script>
+</div>
+
+<h3 style="margin-top:40px">Modern Foods</h3>
+<div class="food-grid">
+<script>
+["Spaghetti","Burger","Pizza","Fried Rice","Grilled Chicken","Pasta"].forEach(f=>{
+document.write(`
+<div class="food-card">
+<img src="https://source.unsplash.com/400x300/?${f}">
+<div>
+<h4>${f}</h4>
+<p>Delicious modern meal</p>
+<b>₦3,000</b><br><br>
+<button onclick="orderFood('${f}')">Order Food</button>
+</div>
+</div>
+`);
+});
+</script>
+</div>
+
+<h3 style="margin-top:40px">Snacks</h3>
+<div class="food-grid">
+<script>
+["Meat Pie","Samosa","Spring Roll","Cake","Donut","Chin Chin"].forEach(f=>{
+document.write(`
+<div class="food-card">
+<img src="https://source.unsplash.com/400x300/?${f}">
+<div>
+<h4>${f}</h4>
+<p>Freshly baked snack</p>
+<b>₦1,500</b><br><br>
+<button onclick="orderFood('${f}')">Order Food</button>
+</div>
+</div>
+`);
+});
+</script>
+</div>
+</section>
+
+<section>
+<h2 class="section-title">Packages</h2>
+<div class="package">
+<h3>Love Combo</h3>
+<p>Perfect romantic food package</p>
+<button onclick="viewPackage('Love Combo')">View Package</button>
+</div>
+
+<div class="package">
+<h3>Family Feast</h3>
+<p>Large meals for family</p>
+<button onclick="viewPackage('Family Feast')">View Package</button>
+</div>
+</section>
+
+<section>
+<h2 class="section-title">Testimonials</h2>
+<div class="testimonial">"Best jollof rice in Lagos!" – Ada</div>
+<div class="testimonial">"Fast delivery and tasty meals." – Kunle</div>
+</section>
+
+<section>
+<h2 class="section-title">Blog</h2>
+<iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ"></iframe>
+</section>
+
+<footer>
+<p>© 2026 Chiomas Pot Kitchen</p>
+<p>WhatsApp Orders: 07065357861</p>
+</footer>
+
+<!-- ORDER MODAL -->
+<div class="modal" id="orderModal">
+<div class="modal-content">
+<h3>Order</h3>
+<input id="itemName" placeholder="Food / Package">
+<input id="name" placeholder="Your Name">
+<input id="phone" placeholder="Phone">
+<input id="email" placeholder="Email">
+<input id="location" placeholder="Delivery Location">
+<input type="date" id="date">
+<input type="time" id="time">
+<button onclick="sendOrder()">Send to WhatsApp</button>
+</div>
+</div>
+
+<!-- CREATE PACKAGE MODAL -->
+<div class="modal" id="createPackage">
+<div class="modal-content">
+<h3>Create Package</h3>
+<input id="pkgName" placeholder="Package Name">
+<select id="items" multiple>
+<option>Jollof Rice</option><option>Chicken</option><option>Plantain</option>
+<option>Salad</option><option>Biscuit & Chocolate</option><option>Drink</option>
+<option>Spaghetti</option><option>Wine</option><option>Love Card</option><option>Cake</option>
+</select>
+<input placeholder="Your Name" id="cpName">
+<input placeholder="Phone" id="cpPhone">
+<input placeholder="Email" id="cpEmail">
+<input placeholder="Delivery Location" id="cpLocation">
+<input type="date" id="cpDate">
+<input type="time" id="cpTime">
+<button onclick="sendPackage()">Send Package Order</button>
+</div>
+</div>
+
+<script>
+function openModal(id){document.getElementById(id).style.display="flex"}
+function closeModals(){document.querySelectorAll('.modal').forEach(m=>m.style.display="none")}
+
+function orderFood(item){
+document.getElementById("itemName").value=item;
+openModal("orderModal");
+}
+
+function viewPackage(pkg){
+document.getElementById("itemName").value=pkg;
+openModal("orderModal");
+}
+
+function sendOrder(){
+let msg=`Order:%20${itemName.value}%0AName:${name.value}%0APhone:${phone.value}%0ALocation:${location.value}%0ADate:${date.value}%20Time:${time.value}`;
+window.open(`https://wa.me/2347065357861?text=${msg}`,"_blank");
+closeModals();
+}
+
+function sendPackage(){
+let items=[...document.getElementById("items").selectedOptions].map(o=>o.value).join(", ");
+let msg=`Package:${pkgName.value}%0AItems:${items}%0AName:${cpName.value}%0APhone:${cpPhone.value}%0ALocation:${cpLocation.value}%0ADate:${cpDate.value}%20Time:${cpTime.value}`;
+window.open(`https://wa.me/2347065357861?text=${msg}`,"_blank");
+closeModals();
+}
+
+window.onclick=e=>{if(e.target.classList.contains("modal"))closeModals()}
+</script>
+
+</body>
+</html>
