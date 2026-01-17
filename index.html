@@ -213,7 +213,7 @@ footer a{color:white;text-decoration:none;display:block;margin:5px}
 <!-- CREATE PACKAGE MODAL -->
 <div class="modal" id="createPackageModal">
 <div class="modal-content">
-<h3>Create Custom Package</h3>
+<h3>Create Custom Package E.g - Valentine OR Matric Package </h3>
 <input id="cPkgName" placeholder="Package Name">
 <input id="searchItem" placeholder="Search items..." onkeyup="filterItems()">
 <div id="customItems" class="item-grid"></div>
@@ -231,38 +231,40 @@ const foodData={
  traditional:[
   ["Jollof Rice","₦3,500","jollof"],
   ["Egusi Soup","₦4,000","egusi"],
-  ["Pounded Yam","₦3,000","yam"],
-  ["Fried Plantain","₦1,500","plantain"],
-  ["Ofada Rice","₦4,500","ofada"],
+  ["Beans and Yam","₦3,000","yam"],
+  ["Plantain and Beans","₦1,500","plantain"],
+  ["Okro Soup","₦4,500","Okro"],
   ["Pepper Soup","₦3,500","pepper soup"]
  ],
  modern:[
   ["Spaghetti","₦3,000","spaghetti"],
   ["Pizza","₦4,500","pizza"],
-  ["Burger","₦3,000","burger"],
+  ["Chicken","₦2,000","Chicken"],
   ["Fried Rice","₦3,500","fried rice"],
-  ["Pasta","₦3,200","pasta"],
-  ["Grilled Chicken","₦4,000","grilled chicken"]
+  ["Salad","₦3,200","Salad"],
+  ["Plantain","₦4,000","Plantain"]
  ],
  snacks:[
   ["Meat Pie","₦1,500","meat pie"],
-  ["Samosa","₦1,200","samosa"],
-  ["Spring Roll","₦1,200","spring roll"],
-  ["Cake","₦2,000","cake"],
-  ["Donut","₦1,000","donut"],
-  ["Chin Chin","₦1,000","chin chin"]
+  ["Bento Cake","₦1,200","Cake"],
+  ["Biscuit and Chocolate","₦1,200","Biscuit And chocolate"],
+  ["Drink","₦2,000","Drink"],
+  ["Donut and Chin chi","₦1,000","donut Chin chin"],
+  ["Love Card","₦1,000","Love Card"]
  ]
 };
 
 const packages=[
- {name:"Love Combo",price:"₦18,000",desc:"Romantic meal setup",
-  items:["Jollof Rice","Chicken","Plantain","Wine","Cake","Love Card"]},
- {name:"Family Feast",price:"₦28,000",desc:"Family size meals",
+ {name:"Valentine Package",price:"₦18,000",desc:"Romantic meal setup",
+  items:["Jollof Rice","Chicken","Plantain","Salad","Biscuit and Chocolate","Drink","Love Card"]},
+ {name:"Matric Package",price:"₦18,000",desc:"Celebrate with friends at uni",
+  items:["Fried Rice","Chicken","Plantain","Wine","Cake","Love Card"]},
+ {name:"Picnic Package",price:"₦28,000",desc:"Enjoy our picnic with friends",
   items:["Fried Rice","Jollof Rice","Chicken","Salad","Drink","Cake"]}
 ];
 
 const itemImages={
- "Jollof Rice":"jollof","Chicken":"chicken","Plantain":"plantain",
+ "Jollof Rice":"https://od.lk/d/NTRfNDAwNjk2Mjlf/21147561_816145725220026_6010281052524773376_n.jpg","Chicken":"chicken","Plantain":"plantain",
  "Wine":"wine","Cake":"cake","Love Card":"gift","Fried Rice":"fried rice",
  "Salad":"salad","Drink":"drink"
 };
