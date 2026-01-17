@@ -9,9 +9,8 @@
 :root{
  --red:#b11226;
  --dark:#3b0a0a;
- --light:#fff5f5;
 }
-body{margin:0;font-family:Segoe UI,sans-serif;background:#fff}
+body{margin:0;font-family:Segoe UI,sans-serif;background:#fafafa}
 header{
  background:var(--red);
  color:#fff;
@@ -80,11 +79,13 @@ button{
  max-height:90vh;
  overflow-y:auto;
 }
-.modal-content input{
+.modal-content input,
+.modal-content textarea{
  width:100%;
  padding:10px;
  margin:6px 0;
 }
+textarea{resize:none}
 .item-grid{
  display:grid;
  grid-template-columns:repeat(auto-fit,minmax(110px,1fr));
@@ -111,7 +112,7 @@ footer{
  padding:30px;
  text-align:center;
 }
-footer a{color:white;text-decoration:none;display:block;margin:5px}
+footer a{color:white;display:block;margin:5px}
 </style>
 </head>
 
@@ -124,10 +125,9 @@ footer a{color:white;text-decoration:none;display:block;margin:5px}
 
 <section class="hero">
 <h1>From My Pot to Your Heart..</h1>
-<p>Delicious meals prepared with love and delivered fresh</p>
+<p>Delicious meals prepared with love</p>
 </section>
 
-<!-- FEATURES -->
 <section>
 <h2 class="section-title">Why Choose Us</h2>
 <div class="feature-grid">
@@ -135,11 +135,10 @@ footer a{color:white;text-decoration:none;display:block;margin:5px}
 <div class="feature-box">🚚 Fast Delivery</div>
 <div class="feature-box">🧼 Hygienic Cooking</div>
 <div class="feature-box">🎉 Event Catering</div>
-<div class="feature-box">💰 Affordable For Students</div>
+<div class="feature-box">💰 Affordable Pricing</div>
 </div>
 </section>
 
-<!-- FOOD AVAILABLE -->
 <section>
 <h2 class="section-title">Food Available</h2>
 
@@ -153,23 +152,9 @@ footer a{color:white;text-decoration:none;display:block;margin:5px}
 <div class="food-grid" id="snacks"></div>
 </section>
 
-<!-- PACKAGES -->
 <section>
 <h2 class="section-title">Packages</h2>
 <div class="food-grid" id="packageList"></div>
-</section>
-
-<!-- TESTIMONIALS -->
-<section>
-<h2 class="section-title">Testimonials</h2>
-<p>“Best jollof rice in Lagos!” – Ada</p>
-<p>“Very neat and delicious food.” – Kunle</p>
-</section>
-
-<!-- BLOG -->
-<section>
-<h2 class="section-title">Blog</h2>
-<iframe width="100%" height="300" src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
 </section>
 
 <footer>
@@ -181,10 +166,11 @@ footer a{color:white;text-decoration:none;display:block;margin:5px}
 <a>YouTube: Chiomas_pot</a>
 </footer>
 
-<!-- ORDER FOOD MODAL -->
+<!-- FOOD ORDER MODAL -->
 <div class="modal" id="foodModal">
 <div class="modal-content">
 <h3 id="foodTitle"></h3>
+<textarea id="fDesc" placeholder="Describe your order (extra spice, quantity etc)"></textarea>
 <input id="fName" placeholder="Your Name">
 <input id="fPhone" placeholder="Phone">
 <input id="fLocation" placeholder="Delivery Location">
@@ -201,6 +187,7 @@ footer a{color:white;text-decoration:none;display:block;margin:5px}
 <p id="pkgDesc"></p>
 <b id="pkgPrice"></b>
 <div id="pkgItems" class="item-grid"></div>
+<textarea id="pkgUserDesc" placeholder="Describe how you want the package"></textarea>
 <input id="pName" placeholder="Your Name">
 <input id="pPhone" placeholder="Phone">
 <input id="pLocation" placeholder="Delivery Location">
@@ -213,69 +200,58 @@ footer a{color:white;text-decoration:none;display:block;margin:5px}
 <!-- CREATE PACKAGE MODAL -->
 <div class="modal" id="createPackageModal">
 <div class="modal-content">
-<h3>Create Custom Package E.g - Valentine OR Matric Package </h3>
+<h3>Create Package E.g - Valentine, Matric etc </h3>
 <input id="cPkgName" placeholder="Package Name">
 <input id="searchItem" placeholder="Search items..." onkeyup="filterItems()">
 <div id="customItems" class="item-grid"></div>
+<textarea id="cDesc" placeholder="Describe your custom package"></textarea>
 <input id="cName" placeholder="Your Name">
 <input id="cPhone" placeholder="Phone">
 <input id="cLocation" placeholder="Delivery Location">
 <input type="date" id="cDate">
 <input type="time" id="cTime">
-<button onclick="sendCustomPackage()">Send Custom Package</button>
+<button onclick="sendCustomPackage()">Send to WhatsApp</button>
 </div>
 </div>
 
 <script>
+const PACKAGE_IMAGE="https://od.lk/d/NTRfNDAwNjk3NTJf/images%20%285%29.jpg";
+
 const foodData={
  traditional:[
   ["Jollof Rice","₦3,500","https://od.lk/d/NTRfNDAwNjk2Mjlf/21147561_816145725220026_6010281052524773376_n.jpg"],
-  ["Egusi Soup","₦4,000","egusi"],
-  ["Beans and Yam","₦3,000","yam"],
-  ["Plantain and Beans","₦1,500","plantain"],
-  ["Okro Soup","₦4,500","Okro"],
-  ["Pepper Soup","₦3,500","pepper soup"]
+  ["Egusi Soup","₦4,000","https://od.lk/d/NTRfNDAwNjk0ODRf/Egusi-soup-Recipe-2-scaled.jpg"],
+  ["Beans & Plantain","₦1,500","https://od.lk/d/NTRfNDAwNjk1NDRf/beansplantain.jpg"]
  ],
  modern:[
-  ["Spaghetti","₦3,000","spaghetti"],
-  ["Pizza","₦4,500","pizza"],
-  ["Chicken","₦2,000","Chicken"],
-  ["Fried Rice","₦3,500","fried rice"],
-  ["Salad","₦3,200","Salad"],
-  ["Plantain","₦4,000","Plantain"]
+  ["Spaghetti","₦3,000","https://od.lk/d/NTRfNDAwNjk2MjBf/Easyspaghettiwithtomatosauce_11715_DDMFS_4x3_2424-8d7bf30b2622465f9dd78a2c6277eeb8.jpg"],
+  ["Fried Rice","₦3,500","https://od.lk/d/NTRfNDAwNjk0NjJf/download%20%283%29.jpg"],
+  ["Chicken","₦2,000","https://od.lk/d/NTRfNDAwNjk2Mjdf/images%20%281%29.jpg"]
  ],
  snacks:[
-  ["Meat Pie","₦1,500","meat pie"],
-  ["Bento Cake","₦1,200","Cake"],
-  ["Biscuit and Chocolate","₦1,200","Biscuit And chocolate"],
-  ["Drink","₦2,000","Drink"],
-  ["Donut and Chin chi","₦1,000","donut Chin chin"],
-  ["Love Card","₦1,000","Love Card"]
+  ["Cake","₦1,200","https://od.lk/d/NTRfNDAwNjk2MjVf/images%20%283%29.jpg"],
+  ["Donut","₦1,000","https://od.lk/d/NTRfNDAwNjk2MjRf/images%20%284%29.jpg"]
  ]
 };
 
-const packages=[
- {name:"Valentine Package",price:"₦18,000",desc:"Romantic meal setup",
-  items:["Jollof Rice","Chicken","Plantain","Salad","Biscuit and Chocolate","Drink","Love Card"]},
- {name:"Matric Package",price:"₦18,000",desc:"Celebrate with friends at uni",
-  items:["Fried Rice","Chicken","Plantain","Wine","Cake","Love Card"]},
- {name:"Picnic Package",price:"₦28,000",desc:"Enjoy our picnic with friends",
-  items:["Fried Rice","Jollof Rice","Chicken","Salad","Drink","Cake"]}
-];
-
 const itemImages={
- "Jollof Rice":"Jellof","Chicken":"chicken","Plantain":"plantain",
- "Wine":"wine","Cake":"cake","Love Card":"gift","Fried Rice":"fried rice",
- "Salad":"salad","Drink":"drink"
+ "Jollof Rice":foodData.traditional[0][2],
+ "Fried Rice":foodData.modern[1][2],
+ "Salad":"https://od.lk/d/NTRfNDAwNjk2MThf/bulk-garbage-salad.jpg",
+ "Chicken":foodData.modern[2][2],
+ "Plantain":"https://od.lk/d/NTRfNDAwNjk2MjZf/images%20%282%29.jpg",
+ "Cake":foodData.snacks[0][2],
+ "Spaghetti":foodData.modern[0][2]
 };
 
 function renderFoods(type,el){
  foodData[type].forEach(f=>{
  el.innerHTML+=`
  <div class="food-card">
- <img src="https://source.unsplash.com/400x300/?${f[2]}">
+ <img src="${f[2]}">
  <div>
- <h4>${f[0]}</h4><p>${f[1]}</p>
+ <h4>${f[0]}</h4>
+ <b>${f[1]}</b>
  <button onclick="orderFood('${f[0]}')">Order Food</button>
  </div></div>`;
  });
@@ -284,15 +260,21 @@ renderFoods("traditional",traditional);
 renderFoods("modern",modern);
 renderFoods("snacks",snacks);
 
+const packages=[
+ {name:"Valentine Package",price:"₦18,000",desc:"Romantic meal setup",
+  items:["Jollof Rice","Chicken","Cake"]},
+ {name:"Celebration Package",price:"₦20,000",desc:"Party meals combo",
+  items:["Fried Rice","Chicken","Spaghetti","Cake"]}
+];
+
 packages.forEach((p,i)=>{
  packageList.innerHTML+=`
  <div class="package-box">
- <img src="https://source.unsplash.com/400x300/?food">
+ <img src="${PACKAGE_IMAGE}">
  <div>
  <h3>${p.name}</h3>
  <p>${p.desc}</p>
  <b>${p.price}</b>
- <ul>${p.items.map(it=>`<li>${it}</li>`).join("")}</ul>
  <button onclick="viewPackage(${i})">View Package</button>
  </div></div>`;
 });
@@ -304,8 +286,15 @@ window.onclick=e=>{if(e.target.classList.contains("modal"))e.target.style.displa
 
 function orderFood(f){currentFood=f;foodTitle.innerText=f;openModal("foodModal")}
 function sendFoodOrder(){
- let m=`Food:${currentFood}%0AName:${fName.value}%0APhone:${fPhone.value}%0ALocation:${fLocation.value}%0ADate:${fDate.value} ${fTime.value}`;
- window.open(`https://wa.me/2347065357861?text=${m}`,"_blank");
+ let msg=`FOOD ORDER
+ Food: ${currentFood}
+ Description: ${fDesc.value}
+
+ Name: ${fName.value}
+ Phone: ${fPhone.value}
+ Location: ${fLocation.value}
+ Date: ${fDate.value} ${fTime.value}`;
+ window.open(`https://wa.me/2347065357861?text=${encodeURIComponent(msg)}`,"_blank");
 }
 
 function viewPackage(i){
@@ -313,31 +302,35 @@ function viewPackage(i){
  pkgTitle.innerText=currentPackage.name;
  pkgDesc.innerText=currentPackage.desc;
  pkgPrice.innerText=currentPackage.price;
- pkgItems.innerHTML="";
- currentPackage.items.forEach(it=>{
- pkgItems.innerHTML+=`
+ pkgItems.innerHTML=currentPackage.items.map(it=>`
  <div class="item-card">
- <img src="https://source.unsplash.com/200x200/?${itemImages[it]||'food'}">
+ <img src="${itemImages[it]||''}">
  <p>${it}</p>
- </div>`;
- });
+ </div>`).join("");
  openModal("packageModal");
 }
 
 function sendPackageOrder(){
- let m=`Package:${currentPackage.name}%0APrice:${currentPackage.price}%0AItems:${currentPackage.items.join(", ")}
-%0AName:${pName.value}%0APhone:${pPhone.value}%0ALocation:${pLocation.value}%0ADate:${pDate.value} ${pTime.value}`;
- window.open(`https://wa.me/2347065357861?text=${m}`,"_blank");
+ let msg=`PACKAGE ORDER
+ Package: ${currentPackage.name}
+ Price: ${currentPackage.price}
+ Items: ${currentPackage.items.join(", ")}
+ Description: ${pkgUserDesc.value}
+
+ Name: ${pName.value}
+ Phone: ${pPhone.value}
+ Location: ${pLocation.value}
+ Date: ${pDate.value} ${pTime.value}`;
+ window.open(`https://wa.me/2347065357861?text=${encodeURIComponent(msg)}`,"_blank");
 }
 
-const allItems=Object.keys(itemImages);
 function loadCustom(){
  customItems.innerHTML="";
  customSelected=[];
- allItems.forEach(it=>{
+ Object.keys(itemImages).forEach(it=>{
  customItems.innerHTML+=`
  <div class="item-card" onclick="toggleCustom(this,'${it}')">
- <img src="https://source.unsplash.com/200x200/?${itemImages[it]}">
+ <img src="${itemImages[it]}">
  <p>${it}</p>
  </div>`;
  });
@@ -345,11 +338,10 @@ function loadCustom(){
 loadCustom();
 
 function toggleCustom(el,it){
- if(customSelected.includes(it)){
-  customSelected=customSelected.filter(x=>x!==it);el.classList.remove("active");
- }else{
-  customSelected.push(it);el.classList.add("active");
- }
+ el.classList.toggle("active");
+ customSelected.includes(it)
+ ? customSelected=customSelected.filter(x=>x!==it)
+ : customSelected.push(it);
 }
 
 function filterItems(){
@@ -360,9 +352,17 @@ function filterItems(){
 }
 
 function sendCustomPackage(){
- let m=`Custom Package:${cPkgName.value}%0AItems:${customSelected.join(", ")}
-%0AName:${cName.value}%0APhone:${cPhone.value}%0ALocation:${cLocation.value}%0ADate:${cDate.value} ${cTime.value}`;
- window.open(`https://wa.me/2347065357861?text=${m}`,"_blank");
+ if(!customSelected.length)return alert("Select items");
+ let msg=`CUSTOM PACKAGE
+ Package: ${cPkgName.value}
+ Items: ${customSelected.join(", ")}
+ Description: ${cDesc.value}
+
+ Name: ${cName.value}
+ Phone: ${cPhone.value}
+ Location: ${cLocation.value}
+ Date: ${cDate.value} ${cTime.value}`;
+ window.open(`https://wa.me/2347065357861?text=${encodeURIComponent(msg)}`,"_blank");
 }
 </script>
 
